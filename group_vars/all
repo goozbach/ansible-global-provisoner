@@ -1,0 +1,13 @@
+---
+derek_vagrant_packages:
+  RedHat:
+    - tree
+    - git
+    - tmux
+    - vim-enhanced
+    - libselinux-python
+  Debian:
+    - vim
+    - tree
+    - git
+    - tmux
