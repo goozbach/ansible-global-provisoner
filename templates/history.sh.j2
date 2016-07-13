@@ -3,3 +3,11 @@
 export HISTFILE=/vagrant/bash_history/${HOSTNAME}/${USER}
 
 mkdir -p $(dirname ${HISTFILE})
+
+prompt_command ()
+{
+    history -a;
+    history -n
+}
+
+export PROMPT_COMMAND=prompt_command
