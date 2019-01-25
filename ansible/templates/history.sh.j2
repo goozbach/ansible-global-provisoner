@@ -1,8 +1,11 @@
 # {{ ansible_managed }}
 
-export HISTFILE=/vagrant/bash_history/${HOSTNAME}/${USER}
+if [[ -d /vagrant/ ]]
+then
+  export HISTFILE=/vagrant/bash_history/${HOSTNAME}/${USER}
+  mkdir -p $(dirname ${HISTFILE})
+fi
 
-mkdir -p $(dirname ${HISTFILE})
 
 prompt_command ()
 {

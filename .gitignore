@@ -1,0 +1,9 @@
+boxes/
+data/
+gems/
+insecure_private_key
+plugins.json
+rgloader/
+setup_version
+tmp/
+*.retry
