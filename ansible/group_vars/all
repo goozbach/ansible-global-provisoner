@@ -5,7 +5,7 @@ derek_vagrant_packages:
     - git
     - tmux
     - vim-enhanced
-    - libselinux-python
+    - python3-libselinux
   Debian:
     - vim
     - tree

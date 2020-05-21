@@ -7,3 +7,4 @@ rgloader/
 setup_version
 tmp/
 *.retry
+bundler
