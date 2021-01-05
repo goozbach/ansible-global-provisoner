@@ -1,0 +1,5 @@
+- name: delete yum repo files
+  file:
+    path: "/etc/yum.repos.d/{{ item }}"
+    state: absent
+  with_items: [ fedora-cisco-openh264.repo, fedora-modular.repo, fedora.repo, fedora-updates-modular.repo, fedora-updates.repo, fedora-updates-testing-modular.repo, fedora-updates-testing.repo ]

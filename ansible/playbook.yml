@@ -5,13 +5,20 @@
   ignore_errors: True
 
   tasks:
-    - name: install epel-release
-      package: name=epel-release state=installed
-      when: "ansible_os_family == 'RedHat'"
+    - name: include per-distro tasks
+      include_tasks: "includes/{{ ansible_os_family }}.yml"
 
     - name: install packages
-      package: name={{ item }} state=installed
+      package:
+        name: "{{ item }}"
+        state: installed
       with_items: "{{ derek_vagrant_packages[ansible_os_family] }}"
 
     - name: template out history file
-      template: src=templates/history.sh.j2 dest=/etc/profile.d/history.sh owner=root group=root mode=0644
+      template:
+        src:
+          templates/history.sh.j2
+        dest: /etc/profile.d/history.sh
+        owner: root
+        group: root
+        mode: 0644
