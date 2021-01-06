@@ -1,5 +1,0 @@
-- name: delete yum repo files
-  file:
-    path: "/etc/yum.repos.d/{{ item }}"
-    state: absent
-  with_items: [ CentOS-Linux-AppStream.repo, CentOS-Linux-Debuginfo.repo, CentOS-Linux-FastTrack.repo, CentOS-Linux-Plus.repo, epel-modular.repo, epel-testing-modular.repo, CentOS-Linux-BaseOS.repo, CentOS-Linux-Devel.repo, CentOS-Linux-HighAvailability.repo, CentOS-Linux-PowerTools.repo, epel-playground.repo, epel-testing.repo, CentOS-Linux-ContinuousRelease.repo, CentOS-Linux-Extras.repo, CentOS-Linux-Media.repo, CentOS-Linux-Sources.repo, epel.repo ]

@@ -1,0 +1,102 @@
+- name: delete yum repo files
+  file:
+    path: "/etc/yum.repos.d/{{ item }}"
+    state: absent
+  with_items: [ CentOS-Linux-Sources.repo, CentOS-Linux-Media.repo, CentOS-Linux-Devel.repo, CentOS-Linux-Debuginfo.repo, CentOS-Linux-FastTrack.repo, CentOS-Linux-Plus.repo, CentOS-Linux-HighAvailability.repo, epel-playground.repo, CentOS-Linux-ContinuousRelease.repo ]
+
+- name: setup polis in /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    regexp: '.*polis\.friocorte\.com$'
+    line: "{{ ansible_default_ipv4.gateway }} polis.friocorte.com"
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Add epel repository
+  yum_repository:
+    name: epel
+    description: Extra Packages for Enterprise Linux $releasever - $basearch
+    baseurl: https://polis.friocorte.com/mirrors/fedora-epel/$releasever/Everything/$basearch/
+    gpgkey: https://polis.friocorte.com/mirrors/fedora-epel/RPM-GPG-KEY-EPEL-8 
+    gpgcheck: yes
+    enabled: yes
+    sslverify: no
+
+- name: Add epel modular repository
+  yum_repository:
+    name: epel-modular
+    description: Extra Packages for Enterprise Linux Modular $releasever - $basearch
+    baseurl: https://polis.friocorte.com/mirrors/fedora-epel/$releasever/Modular/$basearch/
+    gpgkey: https://polis.friocorte.com/mirrors/fedora-epel/RPM-GPG-KEY-EPEL-8 
+    gpgcheck: yes
+    enabled: yes
+    sslverify: no
+    file: epel-modular
+
+- name: Add epel testing repository
+  yum_repository:
+    name: epel-testing
+    description: Extra Packages for Enterprise Linux $releasever - Testing - $basearch
+    baseurl: https://polis.friocorte.com/mirrors/fedora-epel/testing/$releasever/Everything/$basearch/
+    gpgkey: https://polis.friocorte.com/mirrors/fedora-epel/RPM-GPG-KEY-EPEL-8 
+    gpgcheck: yes
+    enabled: yes
+    sslverify: no
+    file: epel-testing
+
+- name: Add epel modular testing repository
+  yum_repository:
+    name: epel-testing-modular
+    description: Extra Packages for Enterprise Linux Modular $releasever - Testing - $basearch
+    baseurl: https://polis.friocorte.com/mirrors/fedora-epel/testing/$releasever/Modular/$basearch/
+    gpgkey: https://polis.friocorte.com/mirrors/fedora-epel/RPM-GPG-KEY-EPEL-8 
+    gpgcheck: yes
+    enabled: yes
+    sslverify: no
+    file: epel-testing-modular
+
+- name: Add extras repository
+  yum_repository:
+    name: extras
+    description: CentOS Linux $releasever - Extras
+    baseurl: "https://polis.friocorte.com/mirrors/centos/$releasever/extras/$basearch/os/"
+    gpgkey: https://polis.friocorte.com/mirrors/centos/RPM-GPG-KEY-CentOS-Official
+    gpgcheck: yes
+    enabled: yes
+    sslverify: no
+    file: CentOS-Linux-Extras
+
+- name: Add powertools repository
+  yum_repository:
+    name: powertools
+    description: CentOS Linux $releasever - PowerTools
+    baseurl: "https://polis.friocorte.com/mirrors/centos/$releasever/PowerTools/$basearch/os/"
+    gpgkey: https://polis.friocorte.com/mirrors/centos/RPM-GPG-KEY-CentOS-Official
+    gpgcheck: yes
+    enabled: yes
+    sslverify: no
+    file: CentOS-Linux-PowerTools
+
+- name: Add appstream repository
+  yum_repository:
+    name: appstream
+    description: CentOS Linux $releasever - AppStream
+    baseurl: "https://polis.friocorte.com/mirrors/centos/$releasever/AppStream/$basearch/os/"
+    gpgkey: https://polis.friocorte.com/mirrors/centos/RPM-GPG-KEY-CentOS-Official
+    gpgcheck: yes
+    enabled: yes
+    sslverify: no
+    file: CentOS-Linux-AppStream
+
+- name: Add baseos repository
+  yum_repository:
+    name: baseos
+    description: CentOS Linux $releasever - BaseOS
+    baseurl: "https://polis.friocorte.com/mirrors/centos/$releasever/BaseOS/$basearch/os/"
+    gpgkey: https://polis.friocorte.com/mirrors/centos/RPM-GPG-KEY-CentOS-Official
+    gpgcheck: yes
+    enabled: yes
+    sslverify: no
+    file: CentOS-Linux-BaseOS
+

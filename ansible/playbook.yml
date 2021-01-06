@@ -6,7 +6,7 @@
 
   tasks:
     - name: include per-distro tasks
-      include_tasks: "includes/{{ ansible_os_family }}.yml"
+      include_tasks: "includes/{{ ansible_distribution }}.yml"
 
     - name: install packages
       package:
@@ -22,3 +22,9 @@
         owner: root
         group: root
         mode: 0644
+
+    - name: debug ansible_default_ipv4
+      debug:
+        var: ansible_default_ipv4
+
+
