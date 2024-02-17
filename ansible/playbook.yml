@@ -5,6 +5,10 @@
   ignore_errors: True
 
   tasks:
+    - name: debug 
+      debug:
+        var: use_local_yum_mirrors
+
     - name: include per-distro tasks
       include_tasks: "includes/{{ ansible_distribution }}.yml"
 

@@ -1,0 +1,112 @@
+- name: delete yum repo files
+  file:
+    path: "/etc/yum.repos.d/{{ item }}"
+    state: absent
+  with_items: [ epel-modular.repo, epel-playground.repo.rpmsave, epel.repo, epel-testing-modular.repo, epel-testing.repo, Rocky-AppStream.repo, Rocky-BaseOS.repo, Rocky-Debuginfo.repo, Rocky-Devel.repo, Rocky-Extras.repo, Rocky-HighAvailability.repo, Rocky-Media.repo, Rocky-NFV.repo, Rocky-Plus.repo, Rocky-PowerTools.repo, Rocky-ResilientStorage.repo, Rocky-RT.repo, Rocky-Sources.repo ]
+  when: use_local_yum_mirrors is defined
+
+- name: setup rishi in /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    regexp: '.*rishi\.friocorte\.com$'
+    line: "{{ ansible_default_ipv4.gateway }} rishi.friocorte.com"
+    owner: root
+    group: root
+    mode: '0644'
+  when: use_local_yum_mirrors is defined
+
+- name: Add epel repository
+  yum_repository:
+    name: epel
+    description: Extra Packages for Enterprise Linux $releasever - $basearch
+    baseurl: http://rishi.friocorte.com/sng/mirrors/fedora-epel/$releasever/Everything/$basearch/
+    gpgkey: http://rishi.friocorte.com/sng/mirrors/fedora-epel/RPM-GPG-KEY-EPEL-8 
+    gpgcheck: yes
+    enabled: yes
+    sslverify: no
+  when: use_local_yum_mirrors is defined
+
+- name: Add epel modular repository
+  yum_repository:
+    name: epel-modular
+    description: Extra Packages for Enterprise Linux Modular $releasever - $basearch
+    baseurl: http://rishi.friocorte.com/sng/mirrors/fedora-epel/$releasever/Modular/$basearch/
+    gpgkey: http://rishi.friocorte.com/sng/mirrors/fedora-epel/RPM-GPG-KEY-EPEL-8 
+    gpgcheck: yes
+    enabled: yes
+    sslverify: no
+    file: epel-modular
+  when: use_local_yum_mirrors is defined
+
+- name: Add epel testing repository
+  yum_repository:
+    name: epel-testing
+    description: Extra Packages for Enterprise Linux $releasever - Testing - $basearch
+    baseurl: http://rishi.friocorte.com/sng/mirrors/fedora-epel/testing/$releasever/Everything/$basearch/
+    gpgkey: http://rishi.friocorte.com/sng/mirrors/fedora-epel/RPM-GPG-KEY-EPEL-8 
+    gpgcheck: yes
+    enabled: yes
+    sslverify: no
+    file: epel-testing
+  when: use_local_yum_mirrors is defined
+
+- name: Add epel modular testing repository
+  yum_repository:
+    name: epel-testing-modular
+    description: Extra Packages for Enterprise Linux Modular $releasever - Testing - $basearch
+    baseurl: http://rishi.friocorte.com/sng/mirrors/fedora-epel/testing/$releasever/Modular/$basearch/
+    gpgkey: http://rishi.friocorte.com/sng/mirrors/fedora-epel/RPM-GPG-KEY-EPEL-8 
+    gpgcheck: yes
+    enabled: yes
+    sslverify: no
+    file: epel-testing-modular
+  when: use_local_yum_mirrors is defined
+
+- name: Add extras repository
+  yum_repository:
+    name: extras
+    description: Rocky Linux $releasever - Extras
+    baseurl: http://rishi.friocorte.com/sng/mirrors/rocky/$releasever/extras/$basearch/os/
+    gpgkey: http://rishi.friocorte.com/sng/mirrors/rocky/RPM-GPG-KEY-Rocky-8
+    gpgcheck: yes
+    enabled: yes
+    sslverify: no
+    file: Rocky-Linux-Extras
+  when: use_local_yum_mirrors is defined
+
+- name: Add powertools repository
+  yum_repository:
+    name: powertools
+    description: Rocky Linux $releasever - PowerTools
+    baseurl: http://rishi.friocorte.com/sng/mirrors/rocky/$releasever/PowerTools/$basearch/os/
+    gpgkey: http://rishi.friocorte.com/sng/mirrors/rocky/$releasever/PowerTools/$basearch/os/RPM-GPG-KEY-rockyofficial
+    gpgcheck: yes
+    enabled: yes
+    sslverify: no
+    file: Rocky-Linux-PowerTools
+  when: use_local_yum_mirrors is defined
+
+- name: Add appstream repository
+  yum_repository:
+    name: appstream
+    description: Rocky Linux $releasever - AppStream
+    baseurl: http://rishi.friocorte.com/sng/mirrors/rocky/$releasever/AppStream/$basearch/os/
+    gpgkey: http://rishi.friocorte.com/sng/mirrors/rocky/$releasever/AppStream/$basearch/os/RPM-GPG-KEY-rockyofficial
+    gpgcheck: yes
+    enabled: yes
+    sslverify: no
+    file: Rocky-Linux-AppStream
+  when: use_local_yum_mirrors is defined
+
+- name: Add baseos repository
+  yum_repository:
+    name: baseos
+    description: Rocky Linux $releasever - BaseOS
+    baseurl: http://rishi.friocorte.com/sng/mirrors/rocky/$releasever/BaseOS/$basearch/os/
+    gpgkey: http://rishi.friocorte.com/sng/mirrors/rocky/$releasever/BaseOS/$basearch/os/RPM-GPG-KEY-rockyofficial
+    gpgcheck: yes
+    enabled: yes
+    sslverify: no
+    file: Rocky-Linux-BaseOS
+  when: use_local_yum_mirrors is defined
+

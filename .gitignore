@@ -8,3 +8,5 @@ setup_version
 tmp/
 *.retry
 bundler
+insecure_private_keys/
+perm_test_*

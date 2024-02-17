@@ -25,7 +25,7 @@ Vagrant.configure("2") do |config|
     mydebug "starting shell provisioner"
     config.vm.provision "shell" do |s|
       s.inline = <<-SHELL
-        source /etc/os-release; if [[ ${ID} -eq 'fedora' || ${ID} -eq 'centos' ]]; then if [[ ${VERSION_ID} -le 7 ]]; then yum -y install python2-simplejson; else yum -y install epel-release; yum -y install python3-simplejson; fi; fi;
+        source /etc/os-release; if [[ ${ID} -eq 'fedora' || ${ID} -eq 'centos' ]]; then if [[ ${VERSION_ID//.*} -le 7 ]]; then yum -y install python2-simplejson; else yum -y install epel-release; yum -y install python3-simplejson; fi; fi;
       SHELL
     end
 
