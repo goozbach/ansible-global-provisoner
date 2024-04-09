@@ -1,5 +1,8 @@
 ---
 use_local_yum_mirrors: "{{ lookup('ansible.builtin.env', 'VAGRANT_USE_LOCAL_MIRRORS', default=undef()) }}"
+derek_vagrant_packages_state:
+  RedHat: installed
+  Debian: present
 derek_vagrant_packages:
   RedHat:
     - tree

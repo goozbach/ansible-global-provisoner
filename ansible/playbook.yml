@@ -15,7 +15,7 @@
     - name: install packages
       package:
         name: "{{ item }}"
-        state: installed
+        state: "{{ derek_vagrant_packages_state[ansible_os_family] }}"
       with_items: "{{ derek_vagrant_packages[ansible_os_family] }}"
 
     - name: template out history file

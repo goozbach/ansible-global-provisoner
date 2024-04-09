@@ -25,7 +25,18 @@ Vagrant.configure("2") do |config|
     mydebug "starting shell provisioner"
     config.vm.provision "shell" do |s|
       s.inline = <<-SHELL
-        source /etc/os-release; if [[ ${ID} -eq 'fedora' || ${ID} -eq 'centos' ]]; then if [[ ${VERSION_ID//.*} -le 7 ]]; then yum -y install python2-simplejson; else yum -y install epel-release; yum -y install python3-simplejson; fi; fi;
+        source /etc/os-release && \
+        echo "Ansible Global Provisioner: ID is ${ID}"
+        if [[ "${ID}" == "fedora" || "${ID}" == "centos" ]]; then
+          echo "Ansible Global Provisioner: centos or fedora"
+          if [[ ${VERSION_ID//.*} -le 7 ]]; then
+            echo "Ansible Global Provisoner: centos <7"
+            yum -y install python2-simplejson;
+          else
+            echo "Ansible Global Provisioner: fedora or centos <7"
+            yum -y install epel-release; yum -y install python5-simplejson;
+          fi;
+        fi;
       SHELL
     end
 
